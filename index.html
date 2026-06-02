@@ -1,20 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>FIFA World Cup 2026</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<title>World Cup 2026</title>
 
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
-<div class="overlay"></div>
 
 <header>
 
@@ -25,11 +18,19 @@
 </div>
 
 <ul>
-<li><a href="#">Home</a></li>
-<li><a href="#">Matches</a></li>
-<li><a href="#">Groups</a></li>
-<li><a href="#">Stadiums</a></li>
-<li><a href="#">Stats</a></li>
+
+<li>
+<a href="index.html">Home</a>
+</li>
+
+<li>
+<a href="matches.html">Matches</a>
+</li>
+
+<li>
+<a href="groups.html">Groups</a>
+</li>
+
 </ul>
 
 </nav>
@@ -42,103 +43,117 @@
 48 Teams • 104 Matches • USA • Canada • Mexico
 </p>
 
-<button>Explore Tournament</button>
-
 </div>
 
 </header>
 
-<section class="facts">
+<section>
 
 <div class="card">
-<h2>48</h2>
-<p>Teams</p>
-</div>
 
-<div class="card">
-<h2>104</h2>
-<p>Matches</p>
-</div>
+<h2>Countdown</h2>
 
-<div class="card">
-<h2>16</h2>
-<p>Host Cities</p>
-</div>
-
-<div class="card">
-<h2>3</h2>
-<p>Host Nations</p>
-</div>
-
-</section>
-
-<section class="scores">
-
-<h2>Latest Scores</h2>
-
-<div class="score-card">
-
-<div>
-Brazil
-</div>
-
-<div class="score">
-3 - 1
-</div>
-
-<div>
-Japan
-</div>
-
-</div>
-
-<div class="score-card">
-
-<div>
-Argentina
-</div>
-
-<div class="score">
-2 - 0
-</div>
-
-<div>
-Mexico
-</div>
+<div id="daysLeft"></div>
 
 </div>
 
 </section>
 
-<section class="hosts">
+<section>
 
-<h2>Host Nations</h2>
+<div class="card">
 
-<div class="host-grid">
+<h2>Favourite Team</h2>
 
-<div class="host">
-🇺🇸 USA
-</div>
+<select id="teamSelect">
 
-<div class="host">
-🇨🇦 Canada
-</div>
+<option>Argentina</option>
+<option>Brazil</option>
+<option>Germany</option>
+<option>Mexico</option>
+<option>USA</option>
 
-<div class="host">
-🇲🇽 Mexico
-</div>
+</select>
+
+<button onclick="saveTeam()">
+
+Save
+
+</button>
+
+<p id="chosenTeam"></p>
 
 </div>
 
 </section>
 
-<footer>
+<script>
 
-<h3>FIFA World Cup 2026</h3>
+const worldCupDate =
+new Date("June 11, 2026");
 
-<p>The biggest World Cup ever.</p>
+function updateCountdown(){
 
-</footer>
+const today =
+new Date();
+
+const diff =
+worldCupDate - today;
+
+const days =
+Math.ceil(
+diff/(1000*60*60*24)
+);
+
+document.getElementById(
+"daysLeft"
+).innerHTML =
+days + " Days Remaining";
+
+}
+
+updateCountdown();
+
+function saveTeam(){
+
+const team =
+document.getElementById(
+"teamSelect"
+).value;
+
+localStorage.setItem(
+"favoriteTeam",
+team
+);
+
+document.getElementById(
+"chosenTeam"
+).innerHTML =
+"Favourite Team: " +
+team;
+
+}
+
+window.onload = function(){
+
+const saved =
+localStorage.getItem(
+"favoriteTeam"
+);
+
+if(saved){
+
+document.getElementById(
+"chosenTeam"
+).innerHTML =
+"Favourite Team: " +
+saved;
+
+}
+
+}
+
+</script>
 
 </body>
 </html>
